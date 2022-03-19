@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "886472556985",
+    "project_id": "codetalks-671e5",
+    "storage_bucket": "codetalks-671e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886472556985:android:ef096f7a88057a7dce7668",
+        "android_client_info": {
+          "package_name": "com.codetalks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886472556985-pp3l9bvpcu0ncjdcghr0v93f6omco8dj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBAyNJlwo6INC4oJgNnIz3fl2I-wPbpfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886472556985-pp3l9bvpcu0ncjdcghr0v93f6omco8dj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -60,16 +60,17 @@ function App() {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={colors.primaryOrange} />
-
       <Stack.Navigator>
-        <Stack.Screen
-          component={MessageStack}
-          name="MessageStack"
-          options={{headerShown: false}}
-        />
+       
         <Stack.Screen
           component={AuthStack}
           name="AuthStack"
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          component={MessageStack}
+          name="MessageStack"
           options={{headerShown: false}}
         />
       </Stack.Navigator>

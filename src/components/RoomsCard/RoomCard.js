@@ -2,9 +2,12 @@ import React from 'react';
 import {TouchableOpacity,Text} from 'react-native';
 import styles from "./RoomCard.style"
 
-function RoomCard({title}) {
+function RoomCard({title, navigation}) {
+  function handleRoom() {
+    navigation.navigate("MRoomPage")
+  }
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={handleRoom} style={styles.container}>
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   );

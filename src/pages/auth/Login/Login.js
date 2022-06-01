@@ -4,7 +4,9 @@ import {SafeAreaView, Text} from 'react-native';
 import * as Yup from 'yup';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
+import auth from '@react-native-firebase/auth';
 import styles from './Login.style';
+import {showMessage} from 'react-native-flash-message';
 
 const initialValues = {
   username: '',
@@ -22,14 +24,31 @@ const formValidation = Yup.object().shape({
 });
 
 function Login({navigation}) {
-  
-    const handleSign = () => {
+  const handleSign = () => {
     navigation.navigate('SignPage');
   };
 
-  const handleLogin = () => {
-    navigation.navigate('MessageStack', {screen: 'MRoomsPage'});
-  };
+  async function handleLogin(formValues) {
+    
+    try {
+      await auth().signInWithEmailAndPassword(
+        formValues.username,
+        formValues.password,
+      );
+      showMessage({
+        message: 'Hoş Geldiniz',
+        type: 'success',
+      });
+      navigation.navigate('MessageStack', {screen: 'MRoomsPage'});
+
+    } catch (error) {
+      showMessage({
+        message: error.code,
+        type:"danger"
+      })
+      console.log(error)
+    }
+  }
 
   return (
     <SafeAreaView style={styles.conrainer}>

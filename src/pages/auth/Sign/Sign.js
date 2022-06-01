@@ -1,10 +1,11 @@
-import {Formik} from 'formik';
-import * as Yup from 'yup';
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 import {showMessage} from 'react-native-flash-message';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
+import auth from "@react-native-firebase/auth"
 import styles from './Sign.style';
 
 const initialFormValues = {
@@ -27,21 +28,28 @@ const formValidation = Yup.object().shape({
 });
 function Sign({navigation}) {
   
-  function handleFormSubmit(formValues) {
-    if (formValues.username) {
+ async function handleFormSubmit(formValues) {
+   
+   console.log(formValues);
+    try {
+      await auth().createUserWithEmailAndPassword(formValues.username,formValues.password)
+      navigation.navigate('MessageStack', {screen: 'MRoomsPage'})
+
       showMessage({
-        message: 'Başarılı, Hoş Geldiniz',
-        type: 'success',
-      });
-    } else {
+        type:"success",
+        message:"Hoş Geldiniz"
+      })
+
+    } catch (error) {
       showMessage({
-        message: 'Hata!',
-        type: 'danger',
-      });
+        type:"danger",
+        message:error.code
+      })
+      console.log(error)
     }
+    
 
     
-    console.log(formValues);
   }
 
   return (

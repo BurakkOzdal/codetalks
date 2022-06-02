@@ -1,34 +1,26 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {View, FlatList} from 'react-native';
 import CFloatingButton from '../../components/FloatingButton';
 import RoomCard from '../../components/RoomsCard/RoomCard';
 import CModal from '../../components/Modal';
 import styles from './MessageRooms.style';
 import database from '@react-native-firebase/database';
+import parseContentData from '../../utils/parseContentData';
 
 function MessageRooms({navigation}) {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [contentList, setContentList] = React.useState([]);
 
-  const data = [
-    {
-      title: 'react',
-    },
-    {
-      title: 'java',
-    },
-    {
-      title: 'react',
-    },
-    {
-      title: 'java',
-    },
-    {
-      title: 'react',
-    },
-    {
-      title: 'java',
-    },
-  ];
+  useEffect(() => {
+    database()
+      .ref('/rooms/')
+      .on('value', snapshot => {
+        const contentData = snapshot.val();
+
+        const parsedData = parseContentData(contentData || {});
+        setContentList(parsedData);
+      });
+  }, []);
 
   const handleModalToggle = () => {
     setIsModalVisible(!isModalVisible);
@@ -46,22 +38,23 @@ function MessageRooms({navigation}) {
       date: new Date().toString(),
     };
 
-    console.log(contentObject)
+    console.log(contentObject);
     database().ref('/rooms').push(contentObject);
   };
 
   const renderData = ({item}) => {
-    return <RoomCard title={item.title} navigation={navigation} />;
+    return <RoomCard title={item.roomName} navigation={navigation} id={item.id}/>;
   };
 
   return (
     <View style={styles.container}>
-      <FlatList data={data} renderItem={renderData} numColumns={2} />
+      <FlatList data={contentList} renderItem={renderData} numColumns={2} />
       <CFloatingButton icon={'plus'} onPress={handleModalToggle} />
       <CModal
         visible={isModalVisible}
         onClose={handleModalToggle}
         onSend={handleRoomContent}
+        placeholder="Oda adı giriniz..."
       />
     </View>
   );

@@ -4,7 +4,7 @@ import ReactNativeModal from 'react-native-modal';
 import Button from '../Button';
 import styles from './Modal.style';
 
-function Modal({visible, onClose, onSend}) {
+function Modal({visible, onClose, onSend, placeholder}) {
   const [text, setText] = React.useState(null);
 
   const handleText = () => {
@@ -26,7 +26,7 @@ function Modal({visible, onClose, onSend}) {
       <View style={styles.container}>
         <View style={styles.input_container}>
           <TextInput
-            placeholder="Oda Adı Giriniz"
+            placeholder={placeholder}
             onChangeText={setText}
             multiline
           />
